@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5beb88b38840b2940b70f7e9fa5070f5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 398e3bc2cd434f34fac20366b66c60c9, type: 2}
     - target: {fileID: 919132149155446097, guid: 5beb88b38840b2940b70f7e9fa5070f5, type: 3}
       propertyPath: m_Name
       value: PhantomBlock

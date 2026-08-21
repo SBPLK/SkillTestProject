@@ -23,7 +23,7 @@ public class ItemButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Begin");
+        //Debug.Log("Begin");
         phantomManager.ShowPhantom(btnIndex);
     }
     public void OnDrag(PointerEventData eventData)
@@ -32,8 +32,8 @@ public class ItemButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("End");
-        phantomManager.HidePhamtom();
+        //Debug.Log("End");
+        //phantomManager.HidePhamtom();
 
     }
 }

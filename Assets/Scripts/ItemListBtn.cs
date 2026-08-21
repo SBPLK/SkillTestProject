@@ -17,7 +17,6 @@ public class ItemListBtn : MonoBehaviour
     void Start()
     {
         listBtn = transform.GetComponentInParent<Button>();
-        Debug.Log(listBtn);
     }
 
     // Update is called once per frame
