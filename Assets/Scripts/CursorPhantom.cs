@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CursorPhantom : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CursorPhantom : MonoBehaviour
         public Mesh BlockMesh;
         public float BlockWidth;
         public float BlockHalfHeight;
+        public Color Color;
     }
     [SerializeField] private GameObject BlockEventBtn;
 
@@ -21,6 +23,7 @@ public class CursorPhantom : MonoBehaviour
     public GameObject Phantom;
     public GameObject LocatorPhantom;
     private int PhantomIndex;
+    [SerializeField] private GameObject lineObject;
 
     public LayerMask clickLayerMask;
 
@@ -37,6 +40,7 @@ public class CursorPhantom : MonoBehaviour
         if (hasPhantom && Phantom != null)
         {
             Phantom.transform.position = GetMousePos();
+            lineObject.transform.position = GetMousePos();
 
             float width = m_Blocks[PhantomIndex].BlockWidth;
             float height = m_Blocks[PhantomIndex].BlockHalfHeight;
@@ -49,6 +53,7 @@ public class CursorPhantom : MonoBehaviour
                 // 4. Get the exact 3D world coordinates of that intersection point
                 worldPosition = Phantom.transform.position - new Vector3(0, hit.distance, 0) + new Vector3(0, height, 0);
                 LocatorPhantom.transform.position = worldPosition;
+                lineObject.transform.localScale = new Vector3(lineObject.transform.localScale.x, hit.distance - height, lineObject.transform.localScale.z);
 
             }
         }
@@ -126,6 +131,8 @@ public class CursorPhantom : MonoBehaviour
         Phantom.SetActive(true);
         LocatorPhantom.SetActive(true);
         hasPhantom = true;
+
+        lineObject.SetActive(true);
         
     }
 
@@ -140,6 +147,7 @@ public class CursorPhantom : MonoBehaviour
         if (Phantom == null) { return; }
         Phantom.SetActive(false);
 
+        lineObject.SetActive(false);
     }
 
     private void SpawnBlock(int index, Vector3 Pos)
@@ -149,6 +157,7 @@ public class CursorPhantom : MonoBehaviour
             GameObject SpawnBlock = Instantiate(BlockPrefab, Pos, new Quaternion(-0.707106888f, 0, 0, 0.707106709f));
             SpawnBlock.GetComponent<MeshFilter>().mesh = m_Blocks[index].BlockMesh;
             SpawnBlock.GetComponent<MeshCollider>().sharedMesh = m_Blocks[index].BlockMesh;
+            SpawnBlock.GetComponent<Renderer>().material.color = m_Blocks[index].Color;
         }
     }
 }
