@@ -155,8 +155,8 @@ public class CursorPhantom : MonoBehaviour
         if (index < m_Blocks.Length)
         {
             GameObject SpawnBlock = Instantiate(BlockPrefab, Pos, new Quaternion(-0.707106888f, 0, 0, 0.707106709f));
-            SpawnBlock.GetComponent<MeshFilter>().mesh = m_Blocks[index].BlockMesh;
             SpawnBlock.GetComponent<MeshCollider>().sharedMesh = m_Blocks[index].BlockMesh;
+            SpawnBlock.GetComponent<MeshFilter>().mesh = m_Blocks[index].BlockMesh;
             SpawnBlock.GetComponent<Renderer>().material.color = m_Blocks[index].Color;
         }
     }
