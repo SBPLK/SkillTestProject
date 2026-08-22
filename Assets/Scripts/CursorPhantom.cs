@@ -11,7 +11,9 @@ public class CursorPhantom : MonoBehaviour
         public float BlockWidth;
         public float BlockHalfHeight;
     }
-    [SerializeField]private BlockData[] m_Blocks = new BlockData[5];
+    [SerializeField] private GameObject BlockEventBtn;
+
+    [SerializeField] private BlockData[] m_Blocks = new BlockData[5];
 
     public GameObject BlockPrefab;
     public GameObject PhantomPrefab;
@@ -19,6 +21,8 @@ public class CursorPhantom : MonoBehaviour
     public GameObject Phantom;
     public GameObject LocatorPhantom;
     private int PhantomIndex;
+
+    public LayerMask clickLayerMask;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +49,6 @@ public class CursorPhantom : MonoBehaviour
                 // 4. Get the exact 3D world coordinates of that intersection point
                 worldPosition = Phantom.transform.position - new Vector3(0, hit.distance, 0) + new Vector3(0, height, 0);
                 LocatorPhantom.transform.position = worldPosition;
-                // SpawnBlock(PhantomIndex, worldPosition);
 
             }
         }
@@ -61,6 +64,33 @@ public class CursorPhantom : MonoBehaviour
                 HidePhamtom();
             }
 
+        }
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+
+            int layerMask = ~clickLayerMask;
+
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                BlockEvent BlockBtn = BlockEventBtn.GetComponent<BlockEvent>();
+                // 4. Get the exact 3D world coordinates of that intersection point
+                if (hit.rigidbody != null && BlockBtn.GetBlock() == null) 
+                {
+                
+                    BlockEventBtn.SetActive(true);
+                    BlockBtn.SetBlock(hit.transform.gameObject);
+                    BlockEventBtn.GetComponent<RectTransform>().SetPositionAndRotation(Mouse.current.position.ReadValue(), new Quaternion(0, 0, 0, 1));
+                
+                }
+                else
+                {
+                    //BlockEventBtn.SetActive(false);
+                    //BlockEventBtn.GetComponent<BlockEvent>().SetBlock(null);
+                }
+
+            }
         }
     }
 
