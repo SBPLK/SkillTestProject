@@ -53,7 +53,7 @@ public class CursorPhantom : MonoBehaviour
                 // 4. Get the exact 3D world coordinates of that intersection point
                 worldPosition = Phantom.transform.position - new Vector3(0, hit.distance, 0) + new Vector3(0, height, 0);
                 LocatorPhantom.transform.position = worldPosition;
-                lineObject.transform.localScale = new Vector3(lineObject.transform.localScale.x, hit.distance - height, lineObject.transform.localScale.z);
+                lineObject.transform.localScale = new Vector3(lineObject.transform.localScale.x, Mathf.Max((hit.distance - height * 2), 0), lineObject.transform.localScale.z);
 
             }
         }
